@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <style>
+        h2{
+            margin: auto;
+            width: 50%;
+        }
+        .carSelector{
+            border: 5px black;
+            background: antiquewhite;
+            width: max-content;
+
+        }
+
+    </style>
+</head>
+<body>
+<h2>Cars</h2>
+<div class = "carSelector">
+    <h4>Load cars from file</h4>
+    <form method="POST" action="/upload-cars" enctype="multipart/form-data">
+        <input type="file" name="file" /><br><br>
+        <input type="submit" value="load" />
+    </form>
+</div>
+<div class="carSelector">
+    <h4><a href="/cars/models"> List mark and model csrs</a></h4>
+</div>
+</body>
+</html>

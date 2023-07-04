@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+drriver-service:
+  address: http://localhost:8090
+security:
+  expirationInMillis: 3200
+  secret: sad465sS6SAass6xzde6wh5s4d6cxz466fg

@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/driver_service
+  thymeleaf:
+    encoding: UTF-8
+    suffix: .html
+    check-template: true
+    enable-spring-el-compiler: true
+  security:
+    user:
+      name: user
+      password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  mvc:
+    log-request-details: true
+server:
+  port: 8099
+  address: localhost
+

@@ -11,19 +11,20 @@
     <groupId>su.egorovwa</groupId>
     <artifactId>TaxiWithOutCecks</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>TaxiWithOutCecks</name>
     <description>TaxiWithOutCecks</description>
+    <modules>
+        <module>driver-service</module>
+        <module>admin-service</module>
+        <module>common-jpa</module>
+        <module>driver-security</module>
+        <module>driver-service-security-contract</module>
+    </modules>
     <properties>
         <java.version>17</java.version>
     </properties>
     <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-docker-compose</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -35,6 +36,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
