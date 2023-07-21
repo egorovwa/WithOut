@@ -12,6 +12,7 @@ import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.exception.AuthException;
 import su.egorovwa.service.DriverService;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class SecurityService {
     public TokenDetail authenticate(String phone, String password) throws AuthException {
         DriverShortDto driverShortDto = driverService.findByPhone(phone)
                 .orElseThrow(() -> new AuthException("driver not found"));
-        if (!passwordEncoder.encode(password).equals(password)) {
+        if (!passwordEncoder.matches(Base64.getEncoder().encodeToString(password.getBytes()), driverShortDto.password())) {
             throw new AuthException("Incorrect password");
         }
         Date issuetAt = new Date();
@@ -53,7 +54,7 @@ public class SecurityService {
                 .addClaims(claims)
                 .setIssuedAt(issuetAt)
                 .setExpiration(expiriesAt)
-                .signWith(SignatureAlgorithm.ES256, Base64.getEncoder().encode(secret.getBytes()))
+                .signWith(SignatureAlgorithm.HS256, secret.getBytes(StandardCharsets.UTF_8))
                 .compact();
     }
 }

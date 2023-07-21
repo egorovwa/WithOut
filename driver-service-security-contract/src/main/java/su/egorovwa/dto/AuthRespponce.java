@@ -1,5 +1,7 @@
 package su.egorovwa.dto;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Builder;
 
 import java.util.Date;

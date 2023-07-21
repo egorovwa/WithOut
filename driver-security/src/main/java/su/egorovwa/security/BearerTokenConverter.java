@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+import su.egorovwa.exception.AuthException;
 import su.egorovwa.exception.UnauthorizedException;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class BearerTokenConverter implements AuthenticationConverter {
     private final JwtHendle jwtHendle;
     private static final String BEARER_PREFIX = "Bearer ";
 
-    private String getBearerValue(String bearearHeader){
+    private String getBearerValue(String bearearHeader) {
         return bearearHeader.substring(BEARER_PREFIX.length());
     }
 
@@ -31,11 +32,10 @@ public class BearerTokenConverter implements AuthenticationConverter {
             String phone = (String) vertificationResult.claims.get("driverPhone");
             String role = (String) vertificationResult.claims.get("role");
             Long id = Long.parseLong(vertificationResult.claims.getId());
-            DriverPrincipal driverPrincipal = new DriverPrincipal(id,phone);
+            DriverPrincipal driverPrincipal = new DriverPrincipal(id, phone);
             List<SimpleGrantedAuthority> simpleGrantedAuthorityList = List.of(new SimpleGrantedAuthority(role));
-            return new UsernamePasswordAuthenticationToken(driverPrincipal,null, simpleGrantedAuthorityList);
-
-        } catch (Exception e) {
+            return new UsernamePasswordAuthenticationToken(driverPrincipal, null, simpleGrantedAuthorityList);
+        } catch (AuthException | NullPointerException e) {
             throw new UnauthorizedException(e.getMessage());
         }
     }

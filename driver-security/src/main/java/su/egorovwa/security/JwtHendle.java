@@ -2,6 +2,7 @@ package su.egorovwa.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import su.egorovwa.exception.AuthException;
 
 import java.util.Base64;
 import java.util.Date;
@@ -13,17 +14,17 @@ public class JwtHendle {
         this.secret = secret;
     }
 
-    private VertificationResult getVertificationResult(String token) throws Exception {
+    private VertificationResult getVertificationResult(String token) throws AuthException {
         Claims claims = Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
                 .parseClaimsJws(token)
                 .getBody();
         if (claims.getExpiration().before(new Date())){
-            throw new Exception("Token expiries");
+            throw new AuthException("Token expiries");
         }
         return new VertificationResult(claims, token);
     }
 
-    public VertificationResult check(String token) throws Exception {
+    public VertificationResult check(String token) throws AuthException {
       return   getVertificationResult(token);
     }
 

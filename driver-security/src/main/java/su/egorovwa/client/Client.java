@@ -36,7 +36,11 @@ public class Client {
     }
 
     public Optional<DriverShortDto> findDriverByName(String name) {
-        return webClient.get().uri("/driver/" + name)
+        return webClient.get().uri(uriBuilder ->
+                        uriBuilder.path("/driver")
+                                .pathSegment(name)
+                                .build()
+                )
                 .retrieve()
                 .bodyToMono(DriverShortDto.class)
                 .map(Optional::ofNullable)

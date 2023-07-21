@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.dto.NewDriverDto;
 import su.egorovwa.dto.mapers.DriverDtoMaper;
+import su.egorovwa.exception.DriverNotFoundException;
 import su.egorovwa.exception.RegistrationException;
 import su.egorovwa.repository.DriverRepository;
 import su.egorovwa.service.DriverService;
@@ -26,5 +28,13 @@ public class DriverServiceImpl implements DriverService {
           log.warn("Ошибка регистрации: {}", e.getMessage());
           throw new RegistrationException(e.getMessage());
       }
+    }
+
+    @Override
+    public DriverShortDto findByPhone(String phone) throws DriverNotFoundException {
+        log.debug("Find driver by phone {}", phone);
+        return driverRepository.findByPhone(phone)
+                .map(driverDtoMaper::toShortDto)
+                .orElseThrow(()-> new DriverNotFoundException("Driver not found"));
     }
 }

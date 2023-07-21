@@ -1,6 +1,7 @@
 package su.egorovwa.dto.mapers;
 
 import org.springframework.stereotype.Component;
+import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.dto.NewDriverDto;
 import su.egorovwa.model.Driver;
 
@@ -18,5 +19,12 @@ public class DriverDtoMaper {
 
     public NewDriverDto toNewDto(Driver driver) {
         return new NewDriverDto(driver.getId(), driver.getPhone(), driver.getFistName(), driver.getLastName(), driver.getPassword(), driver.getEmail());
+    }
+    public DriverShortDto toShortDto(Driver driver){
+        return DriverShortDto.builder()
+                .phone(driver.getPhone())
+                .password(driver.getPassword())
+                .id(driver.getId())
+                .build();
     }
 }

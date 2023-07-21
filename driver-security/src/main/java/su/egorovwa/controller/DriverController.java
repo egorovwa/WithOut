@@ -5,9 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import su.egorovwa.dto.AuthRequest;
+import su.egorovwa.dto.AuthResponceDto;
 import su.egorovwa.dto.AuthRespponce;
 import su.egorovwa.dto.NewDriverDto;
 import su.egorovwa.exception.AuthException;
@@ -29,13 +28,13 @@ public class DriverController {
     }
 
     @PostMapping("/auth/login")
-    public AuthRespponce login(@RequestBody AuthRequest authRequest) throws AuthException {
+    public AuthResponceDto login(@RequestBody AuthRequest authRequest) throws AuthException {
       TokenDetail tokenDetail = securityService.authenticate(authRequest.userName(), authRequest.password());
-        return AuthRespponce.builder()
+        return AuthResponceDto.create(AuthRespponce.builder()
                 .driverId(tokenDetail.driverId())
                 .expiresAt(tokenDetail.expiriesAt())
                 .issuedAt(tokenDetail.issuedAt())
                 .token(tokenDetail.token())
-                .build();
+                .build());
     }
 }

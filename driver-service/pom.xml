@@ -25,19 +25,12 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>su.egorovwa</groupId>
-            <artifactId>common-jpa</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>su.egorovwa</groupId>
-            <artifactId>common-jpa</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>su.egorovwa</groupId>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>driver-service-security-contract</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>common-jpa</artifactId>
         </dependency>
     </dependencies>
 
