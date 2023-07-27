@@ -1,0 +1,38 @@
+  version: '3.8'
+
+  services:
+    driver-service-db:
+      image: postgres:13.7-alpine
+      container_name: driver-service-db
+      ports:
+        - 5432:5432
+      environment:
+        - POSTGRES_DB=driver_service
+        - POSTGRES_USER=user
+        - POSTGRES_PASSWORD=password
+    driver-service:
+      build: driver-service
+      image: driver-service
+      container_name: driver-service
+      extra_hosts:
+        - host.docker.internal:host-gateway
+      hostname: driver_service
+      ports:
+        - "8090:8090"
+      depends_on:
+        - driver-service-db
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://driver-service-db:5432/driver_service
+    driver-securyty:
+      build: driver-security
+      image: driver-securyty
+      container_name: driver-securyty
+      extra_hosts:
+        - host.docker.internal:host-gateway
+      ports:
+        - "8080:8080"
+      depends_on:
+        - driver-service
+
+
+
