@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.Date;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonTypeName("su.egorovwa.withoutchecksdriver.network.dto.NetworkData.AuthRespponce")
+@JsonTypeName("su.egorovwa.withoutchecksdriver.network.dto.NetworkData.AuthResponce")
 public record AuthResponceDto(
         Long driverId,
         String token,
