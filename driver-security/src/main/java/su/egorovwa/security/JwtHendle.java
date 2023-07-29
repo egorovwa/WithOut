@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import su.egorovwa.exception.AuthException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ public class JwtHendle {
     }
 
     private VertificationResult getVertificationResult(String token) throws AuthException {
-        Claims claims = Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
+        Claims claims = Jwts.parser().setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)
                 .getBody();
         if (claims.getExpiration().before(new Date())){
