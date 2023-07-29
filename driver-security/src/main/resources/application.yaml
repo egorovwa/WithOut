@@ -1,11 +1,17 @@
 server:
   port: 8080
+  compression:
+    mime-types: application/json
 
 drriver-service:
-  address: http://host.docker.internal:8090
+  address: http://localhost:8090
 security:
-  expirationInMillis: 3200
+  expirationInMillis: 320000
   secret: sad465sS6SAass6xzde6wh5s4d6cxz466fg
 logging:
   level:
-    root: debug
+    root: trace
+spring:
+  security:
+    filter:
+      dispatcher-types: request

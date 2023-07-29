@@ -1,13 +1,18 @@
 package su.egorovwa.client;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
+
+import org.springframework.web.servlet.function.ServerRequest;
+import org.springframework.web.servlet.function.ServerResponse;
 import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.dto.NewDriverDto;
 
@@ -21,18 +26,35 @@ import java.util.Optional;
 public class Client {
     private final WebClient webClient;
 
-    public ServerResponse sendRequest(ServerRequest serverRequest) throws ServletException, IOException {
-        ClientResponse clientResponse = webClient.method(serverRequest.method())
+    public ServerResponse sendRequest(ServerRequest serverRequest) throws Exception {
+        Object body = null;
+        try {
+            serverRequest.body(Object.class);
+        }catch (Exception e){
+
+        }
+        ClientResponse clientResponse;
+        if (body != null){
+         clientResponse = webClient.method(serverRequest.method())
                 .uri(serverRequest.uri())
-                .bodyValue(serverRequest.bodyToMono(Object.class))
+                .bodyValue(body)
                 .headers(heaters -> heaters.putAll(serverRequest.headers().asHttpHeaders()))
                 .exchange().block();
+        } else  {
+             clientResponse = webClient.method(serverRequest.method())
+                    .uri(serverRequest.uri())
+                    .headers(heaters -> heaters.putAll(serverRequest.headers().asHttpHeaders()))
+                    .exchange().block();
+        }
+        if (clientResponse != null){
+
         return ServerResponse.status(clientResponse.statusCode())
-                .body(clientResponse.bodyToMono(Object.class), Object.class)
-                .doFinally(it -> {
-                    log.info("Responce from {} with status {}", serverRequest.uri(), clientResponse.statusCode());
-                })
-                .block();
+                .body(clientResponse.bodyToMono(Object.class));
+        }else {
+            throw new Exception("ServerResponce is null");
+        }
+
+
     }
 
     public Optional<DriverShortDto> findDriverByName(String name) {
@@ -53,6 +75,16 @@ public class Client {
                 .bodyValue(newDriverDto)
                 .retrieve()
                 .bodyToMono(NewDriverDto.class)
+                .block();
+    }
+
+
+    public Object sendGetRequest(String path) {
+        return  webClient.method(HttpMethod.GET)
+                .uri(path)
+                .contentType(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(Object.class)
                 .block();
     }
 }

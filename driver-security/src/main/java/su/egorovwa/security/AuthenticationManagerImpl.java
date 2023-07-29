@@ -16,8 +16,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         DriverPrincipal driverPrincipal = (DriverPrincipal) authentication.getPrincipal();
-        driverService.findByPhone(driverPrincipal.getName())
-                .orElseThrow(() -> new UnauthorizedException("Driver not found"));
+        var driver = driverService.findByPhone(driverPrincipal.getName());
         return authentication;
     }
 }

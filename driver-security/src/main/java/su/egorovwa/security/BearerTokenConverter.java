@@ -27,11 +27,12 @@ public class BearerTokenConverter implements AuthenticationConverter {
     @Override
     public Authentication convert(HttpServletRequest request) {
         try {
-            String token = request.getHeaders(HttpHeaders.AUTHORIZATION).nextElement();
+            String beaere = request.getHeaders(HttpHeaders.AUTHORIZATION).nextElement();
+            String token = getBearerValue(beaere);
             JwtHendle.VertificationResult vertificationResult = jwtHendle.check(token);
             String phone = (String) vertificationResult.claims.get("driverPhone");
             String role = (String) vertificationResult.claims.get("role");
-            Long id = Long.parseLong(vertificationResult.claims.getId());
+            Long id = Long.parseLong(vertificationResult.claims.getSubject());
             DriverPrincipal driverPrincipal = new DriverPrincipal(id, phone);
             List<SimpleGrantedAuthority> simpleGrantedAuthorityList = List.of(new SimpleGrantedAuthority(role));
             return new UsernamePasswordAuthenticationToken(driverPrincipal, null, simpleGrantedAuthorityList);

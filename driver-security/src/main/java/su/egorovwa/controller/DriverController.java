@@ -1,14 +1,10 @@
 package su.egorovwa.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import su.egorovwa.dto.AuthRequest;
-import su.egorovwa.dto.AuthResponceDto;
-import su.egorovwa.dto.AuthRespponce;
-import su.egorovwa.dto.NewDriverDto;
+import org.springframework.web.bind.annotation.*;
+import su.egorovwa.dto.*;
 import su.egorovwa.exception.AuthException;
 import su.egorovwa.security.SecurityService;
 import su.egorovwa.security.TokenDetail;
@@ -36,5 +32,9 @@ public class DriverController {
                 .issuedAt(tokenDetail.issuedAt())
                 .token(tokenDetail.token())
                 .build());
+    }
+    @GetMapping("/drivers/{phone}")
+    public DriverShortDto getDriver(@PathVariable("phone") String phone){
+        return driverService.findByPhone(phone).orElse(DriverShortDto.builder().id(-1L).phone("a").build());
     }
 }

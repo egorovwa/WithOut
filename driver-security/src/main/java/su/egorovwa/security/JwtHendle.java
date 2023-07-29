@@ -15,17 +15,17 @@ public class JwtHendle {
     }
 
     private VertificationResult getVertificationResult(String token) throws AuthException {
-        Claims claims = Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
+        Claims claims = Jwts.parser().setSigningKey(secret.getBytes())
                 .parseClaimsJws(token)
                 .getBody();
-        if (claims.getExpiration().before(new Date())){
+        if (claims.getExpiration().before(new Date())) {
             throw new AuthException("Token expiries");
         }
         return new VertificationResult(claims, token);
     }
 
     public VertificationResult check(String token) throws AuthException {
-      return   getVertificationResult(token);
+        return getVertificationResult(token);
     }
 
     public class VertificationResult {

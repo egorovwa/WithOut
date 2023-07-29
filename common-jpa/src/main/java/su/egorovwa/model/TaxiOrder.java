@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -14,45 +15,45 @@ import java.util.List;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class TaxiOrder { // TODO: 27.07.2023 без пасажира итд
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     /**
      * начальный адрес
      */
     @ManyToOne
-    private Point startPoint;
+    private Location startLocation;
     /**
      * конечный адрес
      */
     @ManyToOne
-    private Point endPoint;
+    private Location endLocation;
     /**
      * промежуточные адреса
      */
     @ManyToMany
-    private List<Point> trackPoints;
+    private List<Location> trackLocations;
     /**
      * текущий статус заказа
      */
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     /**
-     * время создания заказа
+     * время создания заказа в секундах
      */
-    private LocalDateTime createdAt;
+    private Long createdAt;
     /**
      * время назначения водителя
      */
-    private LocalDateTime driverSelectedAt;
+    private Long driverSelectedAt;
     /**
      * статус завершения заказа
      */
     @Enumerated(EnumType.STRING)
     private OrderCloseStatus orderCloseStatus;
     /**
-     * Время закрытия заказа
+     * Время закрытия заказа в секундах
      */
     private LocalDateTime closedAt;
     @ManyToOne
