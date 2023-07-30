@@ -13,5 +13,5 @@ public class ErrorApi {
     private ErrorCode errorCode;
     private String exceptionMessage;
     private String casus;
-    private Long time;
+    private Long timeInMilis;
 }
