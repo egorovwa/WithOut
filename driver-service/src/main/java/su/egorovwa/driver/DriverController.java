@@ -1,4 +1,4 @@
-package su.egorovwa.controller;
+package su.egorovwa.driver;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -7,7 +7,6 @@ import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.dto.NewDriverDto;
 import su.egorovwa.exception.ObjectAlredyExistException;
 import su.egorovwa.exception.ObjectNotFoundException;
-import su.egorovwa.service.DriverService;
 
 @RestController
 @RequiredArgsConstructor

@@ -1,20 +1,17 @@
-package su.egorovwa.service.impl;
+package su.egorovwa.driver;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.dto.NewDriverDto;
 import su.egorovwa.dto.mapers.DriverDtoMaper;
-import su.egorovwa.exception.DriverNotFoundException;
 import su.egorovwa.exception.ObjectAlredyExistException;
 import su.egorovwa.exception.ObjectNotFoundException;
-import su.egorovwa.exception.RegistrationException;
 import su.egorovwa.repository.DriverRepository;
-import su.egorovwa.service.DriverService;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -22,13 +19,12 @@ public class DriverServiceImpl implements DriverService {
     private final DriverRepository driverRepository;
     private final DriverDtoMaper driverDtoMaper;
     @Override
-    @Transactional
     public NewDriverDto registerDriver(NewDriverDto newDriverDto) throws ObjectAlredyExistException {
       log.info("Регистрация водителя {} ", newDriverDto);
       try {
           return driverDtoMaper.toNewDto(driverRepository.save(driverDtoMaper.fromNewDto(newDriverDto)));
-      }catch (Exception e){
-          log.warn("Ошибка регистрации: {}", e.getMessage());
+      }catch (DataIntegrityViolationException e){
+          log.warn("Ошибка регистрации: {}", e.getClass());
           throw new ObjectAlredyExistException("Driver alredy exist.");
       }
     }

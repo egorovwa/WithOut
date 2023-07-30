@@ -1,4 +1,4 @@
-package su.egorovwa.controller;
+package su.egorovwa.driver;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,7 +11,7 @@ import su.egorovwa.exception.ObjectNotFoundException;
 
 import java.util.Date;
 
-@RestControllerAdvice("su.egorovwa.controller.DriverController")
+@RestControllerAdvice("su.egorovwa.driver")
 
 public class DriverErrrorHendler {
     @ExceptionHandler(ObjectAlredyExistException.class)

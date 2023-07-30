@@ -1,4 +1,4 @@
-package su.egorovwa.service;
+package su.egorovwa.driver;
 
 import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.dto.NewDriverDto;
