@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import su.egorovwa.exception.AuthException;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.Date;
 
 public class JwtHendle {

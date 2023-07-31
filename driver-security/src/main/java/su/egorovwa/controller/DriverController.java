@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import su.egorovwa.dto.*;
 import su.egorovwa.exception.AuthException;
+import su.egorovwa.exception.ServerGetvayClientException;
 import su.egorovwa.security.SecurityService;
 import su.egorovwa.security.TokenDetail;
 import su.egorovwa.service.DriverService;
@@ -18,7 +19,7 @@ public class DriverController {
     private final SecurityService securityService;
 
     @PostMapping("/auth/registre")
-    public NewDriverDto registre(@RequestBody NewDriverDto newDriverDto) throws ServletException, IOException {
+    public NewDriverDto registre(@RequestBody NewDriverDto newDriverDto) throws ServletException, IOException, ServerGetvayClientException {
         return driverService.registre(newDriverDto);
     }
 

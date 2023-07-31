@@ -1,18 +1,23 @@
 package su.egorovwa.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import su.egorovwa.dto.DriverShortDto;
+import su.egorovwa.dto.ErrorApi;
+import su.egorovwa.dto.ErrorCode;
 import su.egorovwa.dto.NewDriverDto;
-
+import su.egorovwa.exception.ServerGetvayClientException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Optional;
 
 @Component
@@ -20,6 +25,8 @@ import java.util.Optional;
 @Slf4j
 public class Client {
     private final WebClient webClient;
+    private final ObjectMapper objectMapper;
+
 
     public ServerResponse sendRequest(ServerRequest serverRequest) throws ServletException, IOException {
         ClientResponse clientResponse = webClient.method(serverRequest.method())
@@ -47,12 +54,28 @@ public class Client {
                 .block();
     }
 
-    public NewDriverDto registerDriver(NewDriverDto newDriverDto) {
-        return webClient.post()
-                .uri("/driver/register")
-                .bodyValue(newDriverDto)
-                .retrieve()
-                .bodyToMono(NewDriverDto.class)
-                .block();
+    public NewDriverDto registerDriver(NewDriverDto newDriverDto) throws ServerGetvayClientException {
+        try {
+            return webClient.post()
+                    .uri("/driver/register")
+                    .bodyValue(newDriverDto)
+                    .retrieve()
+                    .bodyToMono(NewDriverDto.class)
+                    .block();
+        } catch (WebClientResponseException e) {
+            byte[] responce = e.getResponseBodyAsByteArray();
+            try {
+                ErrorApi errorApi = objectMapper.readValue(responce, ErrorApi.class);
+                throw new ServerGetvayClientException(errorApi, e.getStatusCode().value());
+            } catch (IOException ex) {
+                throw new ServerGetvayClientException(ErrorApi.builder()
+                        .errorCode(ErrorCode.SERVER_ERROR)
+                        .casus("Server request empty")
+                        .exceptionMessage(e.getMessage())
+                        .timeInMilis(new Date().getTime())
+                        .build(), 500);
+            }
+
+        }
     }
 }

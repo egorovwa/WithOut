@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import su.egorovwa.client.Client;
 import su.egorovwa.dto.DriverShortDto;
 import su.egorovwa.dto.NewDriverDto;
+import su.egorovwa.exception.ServerGetvayClientException;
 import su.egorovwa.security.DriverDetails;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class DriverServiceImpl implements DriverService, UserDetailsService {
     private final BCryptPasswordEncoder encoder;
 
     @Override
-    public NewDriverDto registre(NewDriverDto newDriverDto) throws ServletException, IOException {
+    public NewDriverDto registre(NewDriverDto newDriverDto) throws ServletException, IOException, ServerGetvayClientException {
 
         return client.registerDriver(newDriverDto.toBuilder()
                 .password(encoder.encode(Base64.getEncoder().encodeToString(newDriverDto.password().getBytes())))

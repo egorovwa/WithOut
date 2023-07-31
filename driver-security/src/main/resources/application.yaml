@@ -6,6 +6,3 @@ drriver-service:
 security:
   expirationInMillis: 500000
   secret: sad465sS6SAass6xzde6wh5s4d6cxz466fg
-logging:
-  level:
-    root: debug
