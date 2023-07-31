@@ -43,15 +43,19 @@ public class Client {
     }
 
     public Optional<DriverShortDto> findDriverByName(String name) {
-        return webClient.get().uri(uriBuilder ->
-                        uriBuilder.path("/driver")
-                                .pathSegment(name)
-                                .build()
-                )
-                .retrieve()
-                .bodyToMono(DriverShortDto.class)
-                .map(Optional::ofNullable)
-                .block();
+        try {
+            return webClient.get().uri(uriBuilder ->
+                            uriBuilder.path("/driver")
+                                    .pathSegment(name)
+                                    .build()
+                    )
+                    .retrieve()
+                    .bodyToMono(DriverShortDto.class)
+                    .map(Optional::ofNullable)
+                    .block();
+        }catch (WebClientResponseException e){
+            return Optional.empty();
+        }
     }
 
     public NewDriverDto registerDriver(NewDriverDto newDriverDto) throws ServerGetvayClientException {
