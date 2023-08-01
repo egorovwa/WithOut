@@ -9,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import su.egorovwa.dto.NewDriverDto;
+import su.egorovwa.dto.driver.NewDriverDto;
 import su.egorovwa.exception.ObjectAlredyExistException;
 
 import static org.mockito.Mockito.when;

@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import su.egorovwa.client.Client;
-import su.egorovwa.dto.DriverShortDto;
-import su.egorovwa.dto.NewDriverDto;
+import su.egorovwa.dto.driver.DriverShortDto;
+import su.egorovwa.dto.driver.NewDriverDto;
 import su.egorovwa.exception.ServerGetvayClientException;
 import su.egorovwa.security.DriverDetails;
 

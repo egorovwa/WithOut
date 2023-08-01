@@ -1,7 +1,7 @@
 package su.egorovwa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import su.egorovwa.model.Point;
+import su.egorovwa.model.OrderPoint;
 
-public interface PointRepository extends JpaRepository<Point, Long> {
+public interface PointRepository extends JpaRepository<OrderPoint, Long> {
 }

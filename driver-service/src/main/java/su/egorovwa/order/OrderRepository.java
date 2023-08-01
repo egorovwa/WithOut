@@ -1,4 +1,4 @@
-package su.egorovwa.repository;
+package su.egorovwa.order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import su.egorovwa.model.Order;

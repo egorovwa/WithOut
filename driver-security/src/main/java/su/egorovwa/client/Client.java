@@ -4,16 +4,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import su.egorovwa.dto.DriverShortDto;
+import su.egorovwa.dto.driver.DriverShortDto;
 import su.egorovwa.dto.ErrorApi;
 import su.egorovwa.dto.ErrorCode;
-import su.egorovwa.dto.NewDriverDto;
+import su.egorovwa.dto.driver.NewDriverDto;
+import su.egorovwa.dto.state.DriverStateRequest;
+import su.egorovwa.dto.state.DriverStateResponce;
 import su.egorovwa.exception.ServerGetvayClientException;
 
 import java.io.IOException;
@@ -81,5 +84,15 @@ public class Client {
             }
 
         }
+    }
+
+    public DriverStateResponce sendDriverStateRequest(String id, DriverStateRequest request) {
+        return webClient
+                .post()
+                .uri("/state/"+id)
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(DriverStateResponce.class)
+                .block();
     }
 }

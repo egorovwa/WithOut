@@ -1,15 +1,15 @@
 package su.egorovwa.driver;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import su.egorovwa.dto.DriverShortDto;
-import su.egorovwa.dto.NewDriverDto;
+import su.egorovwa.dto.driver.DriverShortDto;
+import su.egorovwa.dto.driver.NewDriverDto;
 import su.egorovwa.dto.mapers.DriverDtoMaper;
 import su.egorovwa.exception.ObjectAlredyExistException;
 import su.egorovwa.exception.ObjectNotFoundException;
+import su.egorovwa.model.Driver;
 import su.egorovwa.repository.DriverRepository;
 
 @Service
@@ -35,5 +35,11 @@ public class DriverServiceImpl implements DriverService {
         return driverRepository.findByPhone(phone)
                 .map(driverDtoMaper::toShortDto)
                 .orElseThrow(()-> new ObjectNotFoundException("Driver not found"));
+    }
+
+    @Override
+    public Driver findById(Long id) throws ObjectNotFoundException {
+        return driverRepository.findById(id)
+                .orElseThrow(()->  new ObjectNotFoundException("Driver not found"));
     }
 }

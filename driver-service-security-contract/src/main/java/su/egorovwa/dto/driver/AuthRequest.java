@@ -1,4 +1,4 @@
-package su.egorovwa.dto;
+package su.egorovwa.dto.driver;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;

@@ -3,7 +3,7 @@ package su.egorovwa.controller;
 import jakarta.servlet.ServletException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import su.egorovwa.dto.*;
+import su.egorovwa.dto.driver.*;
 import su.egorovwa.exception.AuthException;
 import su.egorovwa.exception.ServerGetvayClientException;
 import su.egorovwa.security.SecurityService;

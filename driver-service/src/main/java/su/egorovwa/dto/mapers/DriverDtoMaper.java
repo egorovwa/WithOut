@@ -1,8 +1,8 @@
 package su.egorovwa.dto.mapers;
 
 import org.springframework.stereotype.Component;
-import su.egorovwa.dto.DriverShortDto;
-import su.egorovwa.dto.NewDriverDto;
+import su.egorovwa.dto.driver.DriverShortDto;
+import su.egorovwa.dto.driver.NewDriverDto;
 import su.egorovwa.model.Driver;
 
 @Component

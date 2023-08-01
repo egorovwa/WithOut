@@ -22,17 +22,17 @@ public class Order {
      * начальный адрес
      */
     @ManyToOne
-    private Point startPoint;
+    private OrderPoint startPoint;
     /**
      * конечный адрес
      */
     @ManyToOne
-    private Point endPoint;
+    private OrderPoint endPoint;
     /**
      * промежуточные адреса
      */
     @ManyToMany
-    private List<Point> trackPoints;
+    private List<OrderPoint> trackPoints;
     /**
      * текущий статус заказа
      */
@@ -41,11 +41,11 @@ public class Order {
     /**
      * время создания заказа
      */
-    private LocalDateTime createdAt;
+    private Long createdAt;
     /**
      * время назначения водителя
      */
-    private LocalDateTime driverSelectedAt;
+    private Long driverSelectedAt;
     /**
      * статус завершения заказа
      */
@@ -54,7 +54,7 @@ public class Order {
     /**
      * Время закрытия заказа
      */
-    private LocalDateTime closedAt;
+    private Long closedAt;
     @ManyToOne
     private Driver driver;
     }

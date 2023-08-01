@@ -1,4 +1,4 @@
-package su.egorovwa.dto;
+package su.egorovwa.dto.driver;
 
 import lombok.Builder;
 

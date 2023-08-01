@@ -1,4 +1,4 @@
-package su.egorovwa.controller;
+package su.egorovwa.order;
 
 public class OrderController {
 

@@ -1,8 +1,8 @@
 package su.egorovwa.service;
 
 import jakarta.servlet.ServletException;
-import su.egorovwa.dto.DriverShortDto;
-import su.egorovwa.dto.NewDriverDto;
+import su.egorovwa.dto.driver.DriverShortDto;
+import su.egorovwa.dto.driver.NewDriverDto;
 import su.egorovwa.exception.ServerGetvayClientException;
 
 import java.io.IOException;

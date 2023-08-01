@@ -1,9 +1,7 @@
-package su.egorovwa.dto;
+package su.egorovwa.dto.driver;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-
-import java.util.Date;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonTypeName("su.egorovwa.withoutchecksdriver.network.dto.NetworkData.AuthResponce")
